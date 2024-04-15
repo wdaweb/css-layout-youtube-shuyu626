@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube</title>
+    <link rel="stylesheet" href="./css/all.css">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            width: 100%;
+            height: 100%;
+            font-family: "微軟正黑體";
+            background: lightyellow;
+            margin: auto;
+            font-size: 14px;
+        }
+
+        /* 頁首 */
+        #top {
+            width: 100%;
+            height: 6%;
+            background: white;
+            position: fixed;
+            z-index: 5;
+        }
+
+        /* 左上選單 */
+        #menu {
+            position: absolute;
+            top: 50%;
+            left: 1%;
+            transform: translateY(-50%);
+            height: 40px;
+            width: 40px;
+        }
+
+        #menu:hover {
+            cursor: pointer;
+            background: rgb(230, 230, 230);
+            border-radius: 50px;
+        }
+
+        #menu>i {
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #menu>i:hover {
+            cursor: pointer;
+            background: rgb(230, 230, 230);
+        }
+
+        /* 左上youtube標誌 */
+        #youtube_icon>img {
+            height: 100%;
+            position: absolute;
+            left: 5%;
+        }
+
+        /* 搜尋框*/
+        #search_box {
+            width: 550px;
+            height: 40px;
+            width: 30%;
+            height: 70%;
+            border: 1px solid lightgray;
+            border-radius: 50px 0 0 50px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 搜尋欄 */
+        #search_box input {
+            font-size: 16px;
+            color: #888;
+            /* 文字欄本身的外框 */
+            border: none;
+            /* 打字時的外框 */
+            outline: none;
+            width: 90%;
+            height: 65%;
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+        }
+
+        /* 搜尋icon */
+        #search_icon {
+            width: 3%;
+            height: 70%;
+            position: absolute;
+            left: 64%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 1px solid lightgray;
+            border-radius: 0 50px 50px 0;
+            background: rgb(240, 240, 240);
+        }
+
+        #search_icon:hover {
+            background: rgb(230, 229, 229);
+            cursor: pointer;
+        }
+
+        #search_icon>i {
+            font-size: 20px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: #888;
+        }
+
+        /* 麥克風icon */
+        #microphone {
+            width: 40px;
+            height: 40px;
+            border-radius: 50px;
+            position: absolute;
+            left: 68%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgb(240, 240, 240);
+        }
+
+        #microphone:hover {
+            cursor: pointer;
+            background: rgb(230, 230, 230);
+        }
+
+        #microphone>i {
+            font-size: 20px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 設定icon */
+        #set {
+            font-size: 20px;
+            position: absolute;
+            right: 6%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        #set:hover {
+            cursor: pointer;
+        }
+
+        /* 右上角登入鍵 */
+        button {
+            width: 75px;
+            height: 35px;
+            position: absolute;
+            right: 1%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 1px solid lightgray;
+            border-radius: 50px;
+            background: white;
+        }
+
+        button:hover {
+            background: rgb(224, 239, 250);
+            cursor: pointer;
+        }
+
+        #log_in {
+            font-size: 16px;
+            position: absolute;
+            left: 15%;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgb(6, 95, 212);
+        }
+
+        #log_in_text {
+            position: absolute;
+            left: 45%;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgb(6, 95, 212);
+        }
+
+
+
+
+
+        /* 側邊欄 */
+        #left {
+            width: 12%;
+            height: 100%;
+            position: fixed;
+            top: 7%;
+            overflow: auto;
+            padding-left: 8px;
+        }
+
+        #left p {
+            font-size: 16px;
+            text-decoration: none;
+            width: 180px;
+            height: 40px;
+            position: relative;
+            line-height: 40px;
+            padding-left: 10px;
+            margin: 0px;
+        }
+
+        /* 第一格 */
+        #start {
+            border-bottom: 2px solid lightgrey;
+        }
+
+        #start div {
+            width: 180px;
+            height: 40px;
+            position: relative;
+            line-height: 40px;
+            padding-left: 10px;
+        }
+
+        #start div:hover {
+            border-radius: 10px;
+            background: rgb(230, 230, 230);
+            cursor: pointer;
+        }
+
+        #start div i {
+            font-size: 16px;
+            color: black;
+            margin-right: 20px;
+
+        }
+
+        /* 第二格 */
+        #your_content {
+            border-bottom: 2px solid lightgrey;
+        }
+
+        #your_content div {
+            width: 180px;
+            height: 40px;
+            position: relative;
+            line-height: 40px;
+            padding-left: 10px;
+        }
+
+        #your_content div:hover {
+            border-radius: 10px;
+            background: rgb(230, 230, 230);
+            cursor: pointer;
+        }
+
+        #your_content div i {
+            font-size: 16px;
+            color: black;
+            margin-right: 20px;
+        }
+
+        /* 第三格 */
+        #explore {
+            border-bottom: 2px solid lightgrey;
+        }
+
+        #explore div {
+            width: 180px;
+            height: 40px;
+            position: relative;
+            line-height: 40px;
+            padding-left: 10px;
+        }
+
+        #explore div:hover {
+            border-radius: 10px;
+            background: rgb(230, 230, 230);
+            cursor: pointer;
+        }
+
+        #explore div i {
+            font-size: 16px;
+            color: black;
+            margin-right: 20px;
+        }
+
+        /* 第四格 */
+        #function {
+            border-bottom: 2px solid lightgrey;
+        }
+
+        #function div {
+            width: 180px;
+            height: 40px;
+            position: relative;
+            line-height: 40px;
+            padding-left: 10px;
+        }
+
+        #function div:hover {
+            border-radius: 10px;
+            background: rgb(230, 230, 230);
+            cursor: pointer;
+        }
+
+        #function div i {
+            font-size: 16px;
+            color: red;
+            margin-right: 20px;
+        }
+
+        /* 第五格 */
+        #guide {
+            border-bottom: 2px solid lightgrey;
+        }
+
+        #guide div {
+            width: 180px;
+            height: 40px;
+            position: relative;
+            line-height: 40px;
+            padding-left: 10px;
+        }
+
+        #guide div:hover {
+            border-radius: 10px;
+            background: rgb(230, 230, 230);
+            cursor: pointer;
+        }
+
+        #guide div i {
+            font-size: 16px;
+            color: black;
+            margin-right: 20px;
+        }
+
+        /* 第六格 */
+        #footer {
+            height: 200px;
+        }
+
+        #footer div {
+            font-size: 13px;
+            color: #444;
+            margin: 10px;
+        }
+
+        #footer span:hover {
+            cursor: pointer;
+
+        }
+
+        #a,
+        #b,
+        #c {
+            width: 180px;
+            height: 40px;
+            position: relative;
+        }
+
+
+
+        /* 右側影片內容 */
+        #right {
+            width: 87%;
+            height: 94%;
+            position: absolute;
+            top: 6%;
+            left: 13%;
+            float: right;
+        }
+
+        /* 導覽列 */
+        #category {
+            position: fixed;
+            height: 5%;
+            width: 100%;
+            top: 6%;
+            z-index: 2;
+            background: white;
+        }
+
+        #category span {
+            position: relative;
+            top: 18%;
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 0 3px;
+            background: rgb(240, 240, 240);
+            border-radius: 5px;
+        }
+
+        #category span:hover {
+            background: rgb(230, 229, 229);
+            cursor: pointer;
+        }
+
+
+        /* 影片 */
+        #content {
+            position: relative;
+            width: 100%;
+            height: 94%;
+            top: 5%;
+            margin: auto;
+            /* background: rgb(255, 225, 255); */
+        }
+
+        .video {
+            float: left;
+            width: 20%;
+            height: 35%;
+            /* background: rgb(201, 255, 239); */
+            box-sizing: border-box;
+            border: 8px solid white;
+
+        }
+
+        .video:hover {
+            cursor: pointer;
+        }
+
+        .video>img {
+            width: 100%;
+            height: 67%;
+            border-radius: 10px;
+
+        }
+
+        .video .info {
+            width: 100%;
+            height: 35%;
+            margin-top: 5px;
+            /* background: lightgrey; */
+        }
+
+        .video .icon img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            float: left;
+            margin-right: 15px;
+        }
+
+        .video.text {
+            float: right;
+            font-size: 16px;
+        }
+
+        .video .text2 {
+            margin: 5px 0px 0px 55px;
+            font-size: 12px;
+            color: #555;
+            line-height: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="top">
+            <div id="menu">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <a id="youtube_icon" href="./index1.html"><img src="https://logodix.com/logo/4028.jpg" alt=""></a>
+            <div id="search_box">
+                <input type="text" placeholder="搜尋">
+            </div>
+            <div id="search_icon">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div id="microphone">
+                <i class="fa-solid fa-microphone"></i>
+            </div>
+            <i id="set" class="fa-solid fa-ellipsis-vertical"></i>
+            <button>
+                <i id="log_in" class=" fa-solid fa-user-large"></i>
+                <div id="log_in_text">登入</div>
+            </button>
+        </div>
+        <div id="left">
+            <div id="start">
+                <div><i class="fa-solid fa-house"></i>首頁</div>
+                <div><i class="fa-solid fa-bolt"></i>Shorts</div>
+                <div><i class="fa-regular fa-square-caret-right"></i>訂閱內容</div>
+                <div><i class="fa-regular fa-circle-play"></i>YouTube Music</div>
+            </div>
+            <div id="your_content">
+                <p>你的內容 ></p>
+                <div><i class="fa-solid fa-clock-rotate-left"></i>觀看紀錄</div>
+                <div><i class="fa-regular fa-clock"></i>稍後觀看</div>
+                <div><i class="fa-regular fa-circle-down"></i>已下載的內容</div>
+                <div><i class="fa-regular fa-thumbs-up"></i>喜歡的影片</div>
+            </div>
+            <div id="explore">
+                <p>探索</p>
+                <div><i class="fa-solid fa-fire"></i>發燒影片</div>
+                <div><i class="fa-solid fa-music"></i>音樂</div>
+                <div><i class="fa-solid fa-film"></i>電影</div>
+                <div><i class="fa-solid fa-tower-broadcast"></i>直播</div>
+                <div><i class="fa-solid fa-gamepad"></i>遊戲</div>
+                <div><i class="fa-solid fa-newspaper"></i>新聞</div>
+                <div><i class="fa-solid fa-trophy"></i>體育</div>
+                <div><i class="fa-solid fa-podcast"></i>Podcast</div>
+            </div>
+            <div id="function">
+                <p>更多 YouTube 功能</p>
+                <div><i class="fa-solid fa-headphones red"></i>YouTube Music</div>
+                <div><i class="fa-brands fa-youtube red"></i>YouTube Kids</div>
+            </div>
+            <div id="guide">
+                <div><i class="fa-solid fa-gear"></i>設定</div>
+                <div><i class="fa-regular fa-flag"></i>檢舉紀錄</div>
+                <div><i class="fa-regular fa-circle-question"></i>說明</div>
+                <div><i class="fa-solid fa-circle-exclamation"></i>提供意見</div>
+            </div>
+            <div id="footer">
+                <div id="a">
+                    <span>簡介</span>
+                    <span>媒體</span>
+                    <span>著作權</span>
+                    <span>與我們聯絡</span>
+                    <span>創作者</span>
+                    <span>廣告</span>
+                    <span>開發人員</span>
+                </div>
+                <div id="b">
+                    <span>條款</span>
+                    <span>隱私權</span>
+                    <span>政策與安全性</span>
+                    <span>Youtube運作方式</span>
+                    <span>測試新功能</span>
+                </div>
+                <div id="c">© 2024 Google LLC</div>
+            </div>
+        </div>
+        <div id="right">
+            <div id="category">
+                <span>全部</span>
+                <span>音樂</span>
+                <span>直播中</span>
+                <span>新聞</span>
+                <span>合輯</span>
+                <span>遊戲</span>
+                <span>寵物</span>
+                <span>動畫</span>
+                <span>觀光</span>
+                <span>烹飪</span>
+                <span>最新上傳</span>
+                <span>已觀看</span>
+                <span>讓你耳目一新的影片</span>
+            </div>
+            <div id="content">
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/vDNw0FWL8zw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBHn8unXnfJ0XiL20NwTgFcLJqwug">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/qYMuwcLTlRrT3nrlGQvCJdCxIBz5Mf8ygppAVjGY0lifN5v6ijdhVzM6TQCO84Bp8zB9Hna0=s68-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">【3小時JavaScript快速入門】從零基礎到開發第一個應用</div>
+                        <div class="text2">
+                            GrandmaCan -我阿嬤都會<br>
+                            觀看次數：2.6萬次 3 個月前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/H6FUBWGSOIc/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBnm6AI3a5fDgI5NZLdJ03KH0k8Fg" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/1-Yyk77QAiwVPKy8zPwkT6jNbCD7ycX2iwOWujGUWGKJr-o5PyQnav24qe5-V628FYBu7Tgs3w=s68-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">Creepy Nuts - Bling‐Bang‐Bang‐Born / THE FIRST TAKE</div>
+                        <div class="text2">
+                            THE FIRST TAKE<br>
+                            觀看次數：4724萬次 4 週前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/wzIj479b8dU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDwu50jrWxN8RVJLlYlHr_RxzOWUw" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/ytc/AIdro_k5weeys-JIzhPUbjbSNps_LMWc5nP5fyjd-m4m8xuGAtM=s48-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">【好味Podcast精華#162】你怎麼猜的到？？？</div>
+                        <div class="text2">好味小姐腦波弱<br>
+                            觀看次數：11萬次 1 個月前</div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/BAXbjza6oWA/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBOeo17lvPxvha_Mr7gMwLxi0dI5Q" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.googleusercontent.com/ytc/AIdro_kVUNaNKDQTpfRmiT13oelULSfwm2WaEwXyQ2gW5oz-5L8=s176-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">6名囚犯在嚴密看守下計劃越獄，方法令人意想不到，逃離西部監獄 | X調查</div>
+                        <div class="text2">
+                            X調查<br>
+                            觀看次數：58萬次 1 個月前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/UK81GCw1KE8/hq720_live.jpg?sqp=CMTJu7AG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDYufmSddIcpK-Fd3taTJxeBIhHlw" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/V5mmM1zyMzwYeeFmYDvsIUnZ3DZ6GgC5J0TYUP4-QjA6LpmNU03st76cjmyzxFE07o_z-PmHCw=s68-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">《我們這一家》每天不間斷 馬拉松直播｜Muse木棉花 闔家歡</div>
+                        <div class="text2">
+                            Muse木棉花-TW<br>
+                            觀看次數：19萬次 1 周前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/fcNrpDlkBIc/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBMPQAtKCtz5BdpbkZUnC6KsjuW-A" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/jmb-0LnNzuneBWKY4oTsOFCWxMC-XzsfdQVjuPZx3OSgeLhs2oOd7jbMjvfNVucV_5AunDF0kA=s68-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">Smooth Jazz Instrumental Music ☕ Cozy Coffee Shop Ambience...</div>
+                        <div class="text2">
+                            Smooth Jazz Instrumental Music<br>
+                            觀看次數：4,938次 直播時間：22 小時前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/h7A8wYwdtd4/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDUkhlL7iPuLsTbcAHy1cR8z2gTjQ" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/vIAuATDhSuCt-nKBVoKqfOssNkn4CQbuWyBwhnabtmzU5cG2R6yRfYjmFFb6bjkd942PCYmtSOQ=s68-c-k-c0x00ffffff-no-rj-mo" alt=""></div>
+                        <div class="text">日幣是匯率低但不是不用錢耶？可是大阪四天真的省好多🍢【日幣當台幣刷】...</div>
+                        <div class="text2">
+                            HOOK<br>
+                            觀看次數：105萬次 7 天前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/qz_Y_E0e1_M/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBK8mlNSH2fki48MriM-TfAP03XbQ" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/0F4bP75xh5jpDkC4HrPAEos6ZTnjvM7UrSLPK3JTOsIQHaehRUoce-jFpHsa5dqukc1CDvKG9II=s68-c-k-c0x00ffffff-no-rj-mo" alt=""></div>
+                        <div class="text">女友變胖該說出來嗎｜男生變帥的成本很低｜公司尾牙超爛【EP170】...</div>
+                        <div class="text2">
+                            Dcard Video<br>
+                            觀看次數：41萬次 11 天前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/UAhLLkDo5gA/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDcbkPaBxDRFhsMPX1hQvjamlb0iQ" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.googleusercontent.com/ytc/AIdro_nRZ2vp1cVGjuxa0RoTVN9Z6dPgwDS2VJmoLPG3FlPVDMeT=s68-c-k-c0x00ffffff-no-rj-mo" alt=""></div>
+                        <div class="text">Onion Man | 洋蔥的中二丟臉回憶(三) 龍珠篇</div>
+                        <div class="text2">
+                            Onion Man<br>
+                            觀看次數：29萬次 2 週前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/F64yFFnZfkI/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA64M6RfdtL9HaO0iWtrbXZUBjsIQ" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/ytc/AIdro_kVKEa-EG-3DL3jnIwzZ13S4zo8G57by8Gq-nJLBOcuqg=s48-c-k-c0x00ffffff-no-rj-mo" alt=""></div>
+                        <div class="text">ヨルシカ - 說吧。</div>
+                        <div class="text2">
+                            ヨルシカ / n-buna Official<br>
+                            觀看次數：1.5億次 6 年前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/ehTuatSx5Wc/hqdefault_live.jpg?sqp=CMjQu7AG-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAFTh79F22EBG8ns-aM30rHG7DdvQ" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/NrIEzYVk5mBH9yRIefVDnvyD7YQpvbmOUx-LRNaC7KCc1DQ82B-bvURmZbEhZoCllobJjCBq=s68-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">jazz/lofi hip hop radio🌱chill beats to relax/study to [LIVE 24/7]</div>
+                        <div class="text2">
+                            阿鮑Abao<br>
+                            456人正在觀看
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/yvdvpL8foE4/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDCz2epBHT0NUC4AUNzls5j_iMAEA" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.googleusercontent.com/ytc/AIdro_kDOHE4NoyCCL_iB4u4eS3VdZ1kIyJt9jtb1u6sCOkq7hg=s68-c-k-c0x00ffffff-no-rj-mo" alt=""></div>
+                        <div class="text">駕照筆試會考左右擺頭？瘋狂停車幫助隊友！「他是手機玩家，他躲不了！」...</div>
+                        <div class="text2">
+                            爆哥Neal<br>
+                            觀看次數：6.1萬次 6 天前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/stHSxBClKbk/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDt7Gfs-k8nRaNLvjKsTbnOJNzQag" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/bOXrCaT-2TGHMgR6PimIuRviTQTvhczKuexaTCFlQHhndCHbWtMGM9mjj4YRI1SsZphwKVe2ow=s48-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">PLG LIVE GAME 23-24｜240405｜1700｜福爾摩沙夢想家 vs 桃園璞園領航猿</div>
+                        <div class="text2">
+                            PLG LIVE GAME 23-24｜240405<br>
+                            觀看次數：22萬次 直播時間：2 天前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/d-rv3Kx3554/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBU9wjqAtaQ9wk_Fy0O5inmCReocA" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/McoEEWDTf6tdYsVzdYIAuyT4RaEAoDIXUNKbiqPb3urb9palXTpE5S7t3XTYS_FOyBhW_1ZcQTU=s68-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">我潛入了股票報牌群組3個月！詐騙手法一次全解碼！【好棒Bump】【詐騙解碼】</div>
+                        <div class="text2">
+                            好棒Bump<br>
+                            觀看次數：84萬次 7 天前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/yZwlW5INhgk/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBaGuXJSgcxYnnVZqfTIoE2b_ky7A" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/kUaRemmO8oVA1ygqlHodGLwCVztWHpLCd9Cic3KU3lKwjtu3xenO1bucdEPv3nZ1O4LAdMLxfig=s68-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">【javascript】3小時初學者教學 #js #javascript教學 #javascript入門</div>
+                        <div class="text2">
+                            GrandmaCan -我阿嬤都會<br>
+                            觀看次數：33萬次 2 年前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/p1loCdDjMe4/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBrC7ZWIQdB9NANdCRio5iTAP3ypQ" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/ytc/AIdro_kbVikAYaoOp_0jMt8qIhPFDgLc3F6wxzhMGWb4jAy9tdk=s48-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">【豆漿 - SoybeanMilk】規模7.2大地震 豆漿被嚇到喘不過氣...</div>
+                        <div class="text2">
+                            豆漿- SoybeanMilk<br>
+                            觀看次數：55萬次 4 天前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/ntvF__N8Aus/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBbxP7Nn1MsuTNFmlYyncLIGyn3DA" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.googleusercontent.com/ytc/AIdro_nsiJVjzDfl117WVVApnKiyVJirCgTExjajeCM9LqT8GFM=s68-c-k-c0x00ffffff-no-rj-mo" alt=""></div>
+                        <div class="text">【露營出大事】上山露營驚天凍地！前所未見出大事｜反正我很閒</div>
+                        <div class="text2">
+                            反正我很閒<br>
+                            觀看次數：19萬次 1 個月前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/8iuLXODzL04/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCJoVvPw_HkLeuMN154BJCRDoqAlg" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/ytc/AIdro_nMWGqyr97pm_Gwii1PfkXIYJd4QYOiMP779zRdYQh49II=s48-c-k-c0x00ffffff-no-rj-mo" alt=""></div>
+                        <div class="text">YOASOBI「たぶん(或許吧)」Official Music Video</div>
+                        <div class="text2">
+                            Ayase / YOASOBI<br>
+                            觀看次數：1.1億次 3 年前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/N8BWAi4iRsQ/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC9VxBotDUYSz3osbG0G4REYj_gTA" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/DGwb11LSQ4YNT4KqlW7QOLWSb7I82skbMU9UX4bxl02a-_StFwUtIcS1NJG9fe3BDVXUqBqQVg=s68-c-k-c0x00ffffff-no-rj" alt=""> </div>
+                        <div class="text">【猫ミーム】進撃の巨猫　第２話</div>
+                        <div class="text2">
+                            もふ猫NEWS<br>
+                            觀看次數：21萬次 4 週前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/Z38MDD9cNlM/hq720_live.jpg?sqp=CLyKw7AG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCWKG_ErYiDR26nJ3uVPUGBo_Ufkw" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/jWe-dwGiiNd26ijxazm7ZTmbbObYF0e-HJntH2d_YtMM4M-vLKfoSb9Wj1NA6NOUk6KfsG2IsA=s68-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">【LIVE】連夜拆除天王星大樓 水塔.基地台全無</div>
+                        <div class="text2">
+                            TVBS NEWS<br>
+                            1291人正在觀看
+                        </div>
+
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/3MHPosEv5L8/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAErzXr9a7Ar_cA-iJheI6PkBho5g" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/MgUUfakuPNCj-v1NbBUxzTNdxxVy1DdxN_IhSUHK-_uKdkJhE_XKoEIGmN6GRxVX4UEjyX72=s68-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">從芬蘭隨機帶路人回台灣！美食之都合芬蘭人的胃口嗎？！</div>
+                        <div class="text2">
+                            The DoDo Men - 嘟嘟人<br>
+                            觀看次數：94萬次 4 天前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/yjpe4RuPuEk/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDaae_J7sMgEew60S2Cv7mXVcnwPw" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/uatGeksgPgGSnGqb3Rg4TM-tUZuIczqtAe8SkKpB1iokAQmL8bT-RY8lHCLfaGludDO_0o78=s48-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">血液O型爸媽生出A型的小孩!??一場誤會釀成大禍</div>
+                        <div class="text2">
+                            High A Day<br>
+                            觀看次數：10萬次 6 天前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/bsPXlWwN70E/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBIVy289Syr9-hk5Tj1UWL7wcNGgQ" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/ytc/AIdro_ldRRnOosyjrin3RcA8WDMcr2UVW_sVjXA7X5gSHr0TiA=s48-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">【鹿人泥鰍劇場】第一次去做高級spa就不敢再去了！糗態百出！｜真實故事｜</div>
+                        <div class="text2">
+                            鹿人與泥鰍小劇場<br>
+                            觀看次數：17萬次 6 天前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/G-Ks1XYGyaY/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAZjQdOeZ5JPwnVPbiT8gx3OKrHWQ" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/qYMuwcLTlRrT3nrlGQvCJdCxIBz5Mf8ygppAVjGY0lifN5v6ijdhVzM6TQCO84Bp8zB9Hna0=s68-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">前端、後端、資料庫是什麼？它們如何溝通？實際範例解說</div>
+                        <div class="text2">
+                            前端、後端、資料庫是什麼？<br>
+                            觀看次數：42萬次 1 年前
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="https://i.ytimg.com/vi/3hLESh77fSg/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLATd5AKroho79qbCEjwT03VLn_T9g" alt="">
+                    <div class="info">
+                        <div class="icon"><img src="https://yt3.ggpht.com/cuXigNoRRYIUnnwHXYzmn0oHLy9ymZBLuQqj9AGKNy5c481Myd_hjQjc1vWBS3OkkPSKIERIjF4=s88-c-k-c0x00ffffff-no-rj" alt=""></div>
+                        <div class="text">理想混蛋 Bestards【離開的一路上 Farewell】Official Music Video</div>
+                        <div class="text2">
+                            理想混蛋 Bestards<br>
+                            觀看次數：661萬次 5 個月前
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
